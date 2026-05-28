@@ -1,30 +1,31 @@
 # Black-Scholes Option Pricing Model Validation
 
-This project validates the Black-Scholes option pricing model using both controlled sample data and real Goldman Sachs option market data. It evaluates whether theoretical Black-Scholes prices are consistent with observed market prices, how pricing errors vary across option types and moneyness levels, and how option values respond to changes in key financial assumptions.
+This project validates the Black-Scholes option pricing model using controlled sample data and real Goldman Sachs option market data. It evaluates how closely theoretical Black-Scholes prices match observed market prices, how pricing errors vary across option types and moneyness levels, and how option values respond to changes in key financial assumptions.
+
+Dataset used: [Goldman Sachs Option Prices on Kaggle](https://www.kaggle.com/datasets/mohantys/gs-option-prices)
 
 ---
 
-## What This Project Does
+## Project Overview
 
 The project performs a complete option pricing and validation workflow:
 
 - Prices European call and put options using the Black-Scholes model.
-- Computes option Greeks including Delta, Gamma, Vega, Theta, and Rho.
+- Computes option Greeks: Delta, Gamma, Vega, Theta, and Rho.
 - Checks put-call parity to verify internal mathematical consistency.
 - Compares theoretical model prices with market midpoint prices.
 - Quantifies pricing error using MAE, RMSE, MAPE, average pricing error, and maximum absolute error.
-- Analyzes pricing errors by option type: call and put.
-- Analyzes pricing errors by moneyness bucket: OTM/Low, ATM, and ITM/High.
+- Analyzes pricing errors by option type and moneyness bucket.
 - Performs sensitivity analysis across volatility, maturity, and strike price.
 - Generates CSV reports and visual plots for model interpretation.
 
 ---
 
-## How the Project Works
+## How the Model Works
 
-The project uses the Black-Scholes model to calculate theoretical prices for European options. For real-market validation, the Goldman Sachs option dataset provides option quotes, strikes, maturities, implied volatility, and bid-ask prices.
+For real-market validation, the Goldman Sachs options dataset provides option quotes, strikes, maturities, implied volatility, and bid-ask prices.
 
-For each option contract, the project extracts the following values:
+For each option contract, the project uses the following values:
 
 | Variable | Meaning |
 |---|---|
@@ -48,17 +49,13 @@ The pricing error is calculated as:
 Pricing Error = Market Price - Black-Scholes Model Price
 ```
 
-This allows the model output to be compared against observed market quotes in a measurable way.
-
 ---
 
 ## Model Validation Approach
 
-The validation is based on four main checks.
-
 ### 1. Pricing Accuracy
 
-The project compares Black-Scholes theoretical prices with market midpoint prices and reports error metrics such as MAE, RMSE, MAPE, average pricing error, and maximum absolute error.
+The project compares Black-Scholes theoretical prices with market midpoint prices and reports MAE, RMSE, MAPE, average pricing error, and maximum absolute error.
 
 ### 2. Put-Call Parity
 
@@ -72,12 +69,7 @@ A near-zero parity error indicates that the pricing implementation is internally
 
 ### 3. Segmented Error Analysis
 
-Pricing errors are grouped by:
-
-- option type: call vs put
-- moneyness bucket: OTM/Low, ATM, ITM/High
-
-Moneyness is calculated as:
+Pricing errors are grouped by option type and moneyness bucket. Moneyness is calculated as:
 
 ```text
 Moneyness = S / K
@@ -87,91 +79,7 @@ This helps identify where the model performs better or worse.
 
 ### 4. Sensitivity Analysis
 
-The project studies how option prices change when one input changes while the others remain fixed. It analyzes sensitivity to:
-
-- volatility
-- time to maturity
-- strike price
-
-This confirms whether the model behaves in an economically reasonable way.
-
----
-
-## Visual Results
-
-### Model Price vs Market Price
-
-This plot compares Black-Scholes theoretical prices with market midpoint prices. Points close to the diagonal line indicate better agreement between the model and market prices.
-
-![Model Price vs Market Price](reports/plots/model_vs_market_price.png)
-
----
-
-### Pricing Error Distribution
-
-This plot shows the distribution of pricing errors across the Goldman Sachs option contracts.
-
-![Pricing Error Distribution](reports/plots/pricing_error_distribution.png)
-
----
-
-### Mean Absolute Error by Moneyness Bucket
-
-This plot shows how pricing error changes across moneyness categories.
-
-![MAE by Moneyness Bucket](reports/plots/mae_by_moneyness_bucket.png)
-
----
-
-### Volatility Sensitivity
-
-This plot shows how call and put option prices respond to changes in volatility.
-
-![Volatility Sensitivity](reports/plots/volatility_sensitivity.png)
-
----
-
-### Maturity Sensitivity
-
-This plot shows how call and put option prices respond to changes in time to maturity.
-
-![Maturity Sensitivity](reports/plots/maturity_sensitivity.png)
-
----
-
-### Strike Sensitivity
-
-This plot shows how call and put option prices respond to changes in strike price.
-
-![Strike Sensitivity](reports/plots/strike_sensitivity.png)
-
----
-
-## Generated Outputs
-
-The project generates the following result files:
-
-```text
-reports/pricing_error_results.csv
-reports/gs_pricing_error_results.csv
-reports/gs_error_by_option_type.csv
-reports/gs_error_by_moneyness.csv
-reports/volatility_sensitivity.csv
-reports/maturity_sensitivity.csv
-reports/strike_sensitivity.csv
-reports/model_validation_report.md
-```
-
-It also generates the following plots:
-
-```text
-reports/plots/model_vs_market_price.png
-reports/plots/pricing_error_distribution.png
-reports/plots/mae_by_moneyness_bucket.png
-reports/plots/volatility_sensitivity.png
-reports/plots/maturity_sensitivity.png
-reports/plots/strike_sensitivity.png
-```
+The project studies how option prices change when volatility, maturity, or strike price changes while other inputs remain fixed.
 
 ---
 
@@ -184,6 +92,91 @@ reports/plots/strike_sensitivity.png
 | MAPE | Average percentage pricing error |
 | Average Pricing Error | Average signed difference between market price and model price |
 | Max Absolute Error | Largest observed absolute pricing error |
+
+---
+
+## Visual Results
+
+The following plots are generated by the project and saved in `reports/plots/`. They are included in the repository so the validation results can be viewed directly in GitHub.
+
+### Model Price vs Market Price
+
+This plot compares Black-Scholes theoretical prices with market midpoint prices. Points close to the diagonal line indicate stronger agreement between the model and market prices.
+
+<p align="center">
+  <img src="reports/plots/model_vs_market_price.png" alt="Model Price vs Market Price" width="650">
+</p>
+
+---
+
+### Pricing Error Distribution
+
+This plot shows the distribution of pricing errors across Goldman Sachs option contracts.
+
+<p align="center">
+  <img src="reports/plots/pricing_error_distribution.png" alt="Pricing Error Distribution" width="650">
+</p>
+
+---
+
+### Mean Absolute Error by Moneyness Bucket
+
+This plot shows how pricing error changes across moneyness categories.
+
+<p align="center">
+  <img src="reports/plots/mae_by_moneyness_bucket.png" alt="MAE by Moneyness Bucket" width="650">
+</p>
+
+---
+
+### Volatility Sensitivity
+
+This plot shows how call and put option prices respond to changes in volatility.
+
+<p align="center">
+  <img src="reports/plots/volatility_sensitivity.png" alt="Volatility Sensitivity" width="650">
+</p>
+
+---
+
+### Maturity Sensitivity
+
+This plot shows how call and put option prices respond to changes in time to maturity.
+
+<p align="center">
+  <img src="reports/plots/maturity_sensitivity.png" alt="Maturity Sensitivity" width="650">
+</p>
+
+---
+
+### Strike Sensitivity
+
+This plot shows how call and put option prices respond to changes in strike price.
+
+<p align="center">
+  <img src="reports/plots/strike_sensitivity.png" alt="Strike Sensitivity" width="650">
+</p>
+
+---
+
+## Generated Outputs
+
+```text
+reports/pricing_error_results.csv
+reports/gs_pricing_error_results.csv
+reports/gs_error_by_option_type.csv
+reports/gs_error_by_moneyness.csv
+reports/volatility_sensitivity.csv
+reports/maturity_sensitivity.csv
+reports/strike_sensitivity.csv
+reports/model_validation_report.md
+reports/plots/model_vs_market_price.png
+reports/plots/pricing_error_distribution.png
+reports/plots/mae_by_moneyness_bucket.png
+reports/plots/volatility_sensitivity.png
+reports/plots/maturity_sensitivity.png
+reports/plots/strike_sensitivity.png
+```
 
 ---
 
@@ -212,8 +205,6 @@ A stronger extension would be to estimate historical volatility from Goldman Sac
 
 ## Limitations
 
-The current version has the following limitations:
-
 - Dividend yield is not included.
 - The risk-free rate is fixed as a simplifying assumption.
 - Volatility is treated as constant for each option contract.
@@ -225,8 +216,6 @@ The current version has the following limitations:
 ---
 
 ## Future Improvements
-
-Possible extensions include:
 
 - Add dividend yield support.
 - Estimate historical volatility from underlying stock returns.
