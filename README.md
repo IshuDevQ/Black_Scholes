@@ -228,25 +228,6 @@ A stronger extension would be to estimate historical volatility from Goldman Sac
 
 ---
 
-## Skills Demonstrated
-
-```text
-Python
-NumPy
-SciPy
-Pandas
-Matplotlib
-Options pricing
-Greeks computation
-Derivatives analytics
-Model validation
-Pricing error analysis
-Sensitivity analysis
-Quantitative finance
-```
-
----
-
 ## Resume Summary
 
 Built a Python-based Black-Scholes model validation framework for Goldman Sachs options, computing European call and put prices, Greeks, put-call parity error, sensitivity analysis, and real-market pricing deviations using MAE, RMSE, MAPE, option-type segmentation, and moneyness-based error analysis.
